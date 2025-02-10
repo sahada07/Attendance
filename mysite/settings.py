@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'attendance',  
-
+    'mysite',
 ]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'  # Redirect to home after login
+LOGOUT_REDIRECT_URL = 'login'  # Redirect to login page after logout
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,11 +55,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mysite.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'mysite/templates'],  # Add this to tell Django where to look for templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +70,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
@@ -118,8 +122,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+# settings.py
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+STATIC_URL = '/static/'
+
+# This is needed for Django to know where to collect static files during deployment (optional for development)
+STATICFILES_DIRS = [
+    BASE_DIR / "mysite/static",  # Add the path to the static directory
+]
+
+# Static root for production (Optional for dev environment)
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
